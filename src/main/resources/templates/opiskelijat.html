@@ -14,5 +14,10 @@
                 <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
             </li>
         </ol>
+        <form method="POST" action="/drinkit">
+            Nimi:<br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisää drinkki"/>
+        </form>
     </body>
 </html>
