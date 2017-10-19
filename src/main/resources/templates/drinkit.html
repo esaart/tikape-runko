@@ -7,11 +7,13 @@
     </head>
 
     <body>
-        <h4>Tämä sivu on ehkä se, jolla drinkkien pitäis olla luetteloituna.</h4>
+        <h4>Tällä sivulla on luetteloitu kaikki drinkkimme.</h4>
+        
+        <p>Klikkaamalla drinkin nimeä pääset katsomaan kyseisen drinkin ainesosia ja valmistusohjetta.</p>
 
         <ol>
             <li th:each="drinkki: ${drinkit}">
-                <span th:text="${drinkki.nimi}">drinkin nimi</span> <a th:href="${'/drinkit/' + drinkki.id}">linkki</a>
+                <a th:href="${'/drinkit/' + drinkki.id}"><span th:text="${drinkki.nimi}">drinkin nimi</span></a>
             </li>
         </ol>
         
