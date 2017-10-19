@@ -7,11 +7,11 @@
     </head>
 
     <body>
-        <h1>Hei opiskelijat!</h1>
+        <h1>Tämä sivu on ehkä se, jolla drinkkien pitäis olla luetteloituna.</h1>
 
         <ol>
-            <li th:each="opiskelija: ${opiskelijat}">
-                <span th:text="${opiskelija.nimi}">opiskelijan nimi</span> <a th:href="${'/opiskelijat/' + opiskelija.id}">linkki</a>
+            <li th:each="drinkki: ${drinkit}">
+                <span th:text="${drinkki.nimi}">drinkin nimi</span> <a th:href="${'/drinkit/' + drinkki.id}">linkki</a>
             </li>
         </ol>
         <form method="POST" action="/drinkit">
