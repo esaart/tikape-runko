@@ -6,8 +6,16 @@
         
     </head>
     <body>
-        
-        <h1>Lisää uusi drinkki.</h1>
+        <ul>
+            <li> th:each="drinkki: ${drinkit}">
+                <span th:text="${drinkki.nimi}">drinkin nimi</span>
+                <form method="POST" action="/poista">
+                    <input type="submit" value="Poista"/></form>
+            </li>
+           
+            
+        </ul>
+        <h4>Lisää uusi drinkki.</h4>
         <form method="POST" action="/lisays">
         Drinkin nimi:<br/>
         <input type="text" name="nimi"/><br/>
