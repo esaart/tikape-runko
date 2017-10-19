@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.domain.Opiskelija;
+import tikape.runko.domain.Drinkki;
 
-public class DrinkkiDao implements Dao<Opiskelija, Integer> {
+public class DrinkkiDao implements Dao<Drinkki, Integer> {
 
     private Database database;
 
@@ -22,7 +22,7 @@ public class DrinkkiDao implements Dao<Opiskelija, Integer> {
     }
 
     @Override
-    public Opiskelija findOne(Integer key) throws SQLException {
+    public Drinkki findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Opiskelija WHERE id = ?");
         stmt.setObject(1, key);
@@ -36,7 +36,7 @@ public class DrinkkiDao implements Dao<Opiskelija, Integer> {
         Integer id = rs.getInt("id");
         String nimi = rs.getString("nimi");
 
-        Opiskelija o = new Opiskelija(id, nimi);
+        Drinkki o = new Drinkki(id, nimi);
 
         rs.close();
         stmt.close();
@@ -46,18 +46,18 @@ public class DrinkkiDao implements Dao<Opiskelija, Integer> {
     }
 
     @Override
-    public List<Opiskelija> findAll() throws SQLException {
+    public List<Drinkki> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Opiskelija");
 
         ResultSet rs = stmt.executeQuery();
-        List<Opiskelija> opiskelijat = new ArrayList<>();
+        List<Drinkki> opiskelijat = new ArrayList<>();
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
 
-            opiskelijat.add(new Opiskelija(id, nimi));
+            opiskelijat.add(new Drinkki(id, nimi));
         }
 
         rs.close();
