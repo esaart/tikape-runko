@@ -10,7 +10,7 @@ import tikape.runko.database.DrinkkiDao;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Database database = new Database("jdbc:sqlite:drinkit.db");
+        Database database = new Database("jdbc:sqlite:db/drinkit.db");
         DrinkkiDao drinkkiDao = new DrinkkiDao(database);
 
         get("/", (req, res) -> {
