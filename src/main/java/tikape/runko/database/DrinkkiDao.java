@@ -70,9 +70,48 @@ public class DrinkkiDao implements Dao<Drinkki, Integer> {
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Drinkki WHERE id = ?");
         stmt.setInt(1, key);
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }
 
+    @Override
+    public Drinkki saveOrUpdate(Drinkki object) throws SQLException {
+        if (object.getId() == null) {
+            return save(object);
+        } else {
+            return update(object);
+        }
+    }
+
+    private Drinkki save(Drinkki drinkki) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Drinkki"
+                + "(nimi) VALUES (?)");
+        stmt.setString(1, drinkki.getNimi());
+        stmt.executeUpdate();
+        
+        ResultSet generatedKeys = stmt.getGeneratedKeys();
+        int id = generatedKeys.getInt(1);
+        
+        stmt.close();
+        conn.close();
+        
+        return findOne(id);
+    }
+
+    private Drinkki update(Drinkki drinkki) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("UPDATE Drinkki SET "
+                + "nimi = ? WHERE id = ?");
+        stmt.setString(1, drinkki.getNimi());
+        stmt.setInt(2, drinkki.getId());
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        conn.close();
+        
+        return drinkki;
+    }
 }
