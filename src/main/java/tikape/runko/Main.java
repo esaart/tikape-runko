@@ -34,6 +34,14 @@ public class Main {
             return new ModelAndView(map, "drinkki");
         }, new ThymeleafTemplateEngine());
         
+        get("/lisays", (req, res) -> {
+            HashMap map = new HashMap<>();
+
+            return new ModelAndView(map, "lisays");
+        }, new ThymeleafTemplateEngine());
+        
+        
+        
 //        post("/drinkit", (req,res) -> {
 //            )
 //            
