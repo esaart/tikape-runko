@@ -47,7 +47,9 @@ public class DrinkkiDao implements Dao<Drinkki, Integer> {
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki");
 
         ResultSet rs = stmt.executeQuery();
+
         List<Drinkki> drinkit = new ArrayList<>();
+
         while (rs.next()) {
             Integer id = rs.getInt("id");
             String nimi = rs.getString("nimi");
