@@ -1,68 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tikape.runko.domain;
 
-/**
- *
- * @author makisann
- */
 public class DrinkkiRaakaAine {
-    private Integer drinkki_id;
-    private Integer raakaaine_id;
+
+    private Drinkki drinkki;
+    private RaakaAine raakaAine;
     private Integer jarjestys;
     private String maara;
     private String ohje;
 
-    public DrinkkiRaakaAine(Integer drinkki_id, Integer raakaaine_id, Integer jarjestys, String maara, String ohje) {
-        this.drinkki_id = drinkki_id;
-        this.raakaaine_id = raakaaine_id;
+    public DrinkkiRaakaAine(Drinkki drinkki, RaakaAine raakaAine, Integer jarjestys, String maara, String ohje) {
+        this.drinkki = drinkki;
+        this.raakaAine = raakaAine;
         this.jarjestys = jarjestys;
         this.maara = maara;
         this.ohje = ohje;
     }
 
-    public Integer getDrinkki_id() {
-        return drinkki_id;
+    public Drinkki getDrinkki() {
+        return drinkki;
     }
 
-    public Integer getRaakaaine_id() {
-        return raakaaine_id;
+    public void setDrinkki(Drinkki drinkki) {
+        this.drinkki = drinkki;
     }
 
-    public void setDrinkki_id(Integer drinkki_id) {
-        this.drinkki_id = drinkki_id;
+    public RaakaAine getRaakaAine() {
+        return raakaAine;
     }
 
-    public void setRaakaaine_id(Integer raakaaine_id) {
-        this.raakaaine_id = raakaaine_id;
-    }
-
-    public void setJarjestys(Integer jarjestys) {
-        this.jarjestys = jarjestys;
-    }
-
-    public void setMaara(String maara) {
-        this.maara = maara;
-    }
-
-    public void setOhje(String ohje) {
-        this.ohje = ohje;
+    public void setRaakaAine(RaakaAine raakaAine) {
+        this.raakaAine = raakaAine;
     }
 
     public Integer getJarjestys() {
         return jarjestys;
     }
 
+    public void setJarjestys(Integer jarjestys) {
+        this.jarjestys = jarjestys;
+    }
+
     public String getMaara() {
         return maara;
+    }
+
+    public void setMaara(String maara) {
+        this.maara = maara;
     }
 
     public String getOhje() {
         return ohje;
     }
-    
-    
+
+    public void setOhje(String ohje) {
+        this.ohje = ohje;
+    }
+
 }
