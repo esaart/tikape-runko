@@ -76,6 +76,14 @@ public class Main {
             return "";
         });
         
+        post("/ainekset", (req, res) -> {
+            RaakaAine raakaAine = new RaakaAine(null, req.queryParams("nimi"));
+            raakaaineDao.saveOrUpdate(raakaAine);
+
+            res.redirect("/ainekset");
+            return "";
+        });
+        
 //        post("/drinkit", (req,res) -> {
 //            )
 //            
