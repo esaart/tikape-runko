@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.domain.Drinkki;
 
 public class DrinkkiDao implements Dao<Drinkki, Integer> {
 
-    private Database database;
+    private final Database database;
 
     public DrinkkiDao(Database database) {
         this.database = database;
@@ -18,61 +19,51 @@ public class DrinkkiDao implements Dao<Drinkki, Integer> {
 
     @Override
     public Drinkki findOne(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki WHERE id = ?");
-        stmt.setObject(1, key);
+        String query = "SELECT * FROM Drinkki WHERE id = ?";
+        Drinkki drinkki;
 
-        ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
+        try (Connection conn = database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setObject(1, key);
+
+            ResultSet rs = stmt.executeQuery();
+            boolean hasOne = rs.next();
+            if (!hasOne) {
+                return null;
+            }
+
+            drinkki = new Drinkki(rs.getInt("id"), rs.getString("nimi"));
         }
-
-        Integer id = rs.getInt("id");
-        String nimi = rs.getString("nimi");
-
-        Drinkki o = new Drinkki(id, nimi);
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
-        return o;
+        return drinkki;
     }
 
     @Override
     public List<Drinkki> findAll() throws SQLException {
-
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Drinkki");
-
-        ResultSet rs = stmt.executeQuery();
-
         List<Drinkki> drinkit = new ArrayList<>();
 
-        while (rs.next()) {
-            Integer id = rs.getInt("id");
-            String nimi = rs.getString("nimi");
+        try (Connection conn = database.getConnection();
+                Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Drinkki");
 
-            drinkit.add(new Drinkki(id, nimi));
+            while (rs.next()) {
+                Integer id = rs.getInt("id");
+                String nimi = rs.getString("nimi");
+
+                drinkit.add(new Drinkki(id, nimi));
+            }
         }
-
-        rs.close();
-        stmt.close();
-        connection.close();
-
         return drinkit;
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Drinkki WHERE id = ?");
-        stmt.setInt(1, key);
-        stmt.executeUpdate();
+        String query = "DELETE FROM Drinkki WHERE id = ?";
 
-        stmt.close();
-        connection.close();
+        try (Connection conn = database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, key);
+            stmt.executeUpdate();
+        }
     }
 
     @Override
@@ -85,33 +76,31 @@ public class DrinkkiDao implements Dao<Drinkki, Integer> {
     }
 
     private Drinkki save(Drinkki drinkki) throws SQLException {
-        Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Drinkki"
-                + "(nimi) VALUES (?)");
-        stmt.setString(1, drinkki.getNimi());
-        stmt.executeUpdate();
-        
-        ResultSet generatedKeys = stmt.getGeneratedKeys();
-        int id = generatedKeys.getInt(1);
-        
-        stmt.close();
-        conn.close();
-        
-        return findOne(id);
+        String query = "INSERT INTO Drinkki (nimi) VALUES (?)";
+        Drinkki searhced;
+
+        try (Connection conn = database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, drinkki.getNimi());
+            stmt.executeUpdate();
+
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            int id = generatedKeys.getInt(1);
+            searhced = findOne(id);
+        }
+        return searhced;
     }
 
     private Drinkki update(Drinkki drinkki) throws SQLException {
-        Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("UPDATE Drinkki SET "
-                + "nimi = ? WHERE id = ?");
-        stmt.setString(1, drinkki.getNimi());
-        stmt.setInt(2, drinkki.getId());
-        
-        stmt.executeUpdate();
-        
-        stmt.close();
-        conn.close();
-        
+        String query = "UPDATE Drinkki SET nimi = ? WHERE id = ?";
+
+        try (Connection conn = database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, drinkki.getNimi());
+            stmt.setInt(2, drinkki.getId());
+
+            stmt.executeUpdate();
+        }
         return drinkki;
     }
 }
