@@ -80,6 +80,7 @@ public class DrinkkiRaakaAineDao {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM DrinkkiRaakaAine"
                 + " WHERE drinkki_id = ?");
+        stmt.setInt(drinkki.getId(), 1);
         ResultSet rs = stmt.executeQuery();
         
         List<DrinkkiRaakaAine> dras = new ArrayList();

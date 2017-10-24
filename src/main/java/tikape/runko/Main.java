@@ -7,6 +7,7 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.DrinkkiDao;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.domain.Drinkki;
 import tikape.runko.domain.RaakaAine;
 
 public class Main {
@@ -63,6 +64,13 @@ public class Main {
             }, new ThymeleafTemplateEngine());
         
         
+        post("/lisays", (req, res) -> {
+            Drinkki drinkki = new Drinkki(null, req.queryParams("nimi"));
+            drinkkiDao.saveOrUpdate(drinkki);
+
+            res.redirect("/lisays");
+            return "";
+        });
         
 //        post("/drinkit", (req,res) -> {
 //            )
