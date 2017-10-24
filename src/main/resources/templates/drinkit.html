@@ -7,16 +7,10 @@
     </head>
 
     <body>
-<<<<<<< HEAD
 
-        <h1>Drinkit</h1>
-
-=======
         <h4>Tällä sivulla on luetteloitu kaikki drinkkimme.</h4>
         
         <p>Klikkaamalla drinkin nimeä pääset katsomaan kyseisen drinkin ainesosia ja valmistusohjetta.</p>
->>>>>>> 47d154412711efae55d72153069f13e0361bf394
-
         <ol>
             <li th:each="drinkki: ${drinkit}">
                 <a th:href="${'/drinkit/' + drinkki.id}"><span th:text="${drinkki.nimi}">drinkin nimi</span></a>
