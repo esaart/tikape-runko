@@ -16,7 +16,17 @@ and open the template in the editor.
         <ul> 
             <li th:each="raakaaine: ${raakaaineet}">
                 <span th:text="${raakaaine.nimi}">raakaaineen nimi</span>
+                <form method="POST" action="/poista">
+                    <input type="hidden" name="id" th:value="${raakaaine.id}"/>
+                    
+                    <input type="submit" value="Poista"/></form>
             </li>    
         </ul>
+        <h4>Lisää uusi raaka-aine.</h4>
+        <form method="POST" action="/ainekset">
+        Raaka-aineen nimi:<br/>
+        <input type="text" name="nimi"/><br/>
+        <input type="submit" value="Lisää"/>
+        </form>
     </body>
 </html>
