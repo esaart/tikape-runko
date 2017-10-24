@@ -68,6 +68,13 @@ public class Main {
             }, new ThymeleafTemplateEngine());
         
         
+        post("/lisays", (req, res) -> {
+            Drinkki drinkki = new Drinkki(null, req.queryParams("nimi"));
+            drinkkiDao.saveOrUpdate(drinkki);
+
+            res.redirect("/lisays");
+            return "";
+        });
         
 //        post("/drinkit", (req,res) -> {
 //            )

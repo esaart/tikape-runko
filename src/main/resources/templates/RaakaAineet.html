@@ -1,22 +1,37 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+    <!--
+    To change this license header, choose License Headers in Project Properties.
+    To change this template file, choose Tools | Templates
+    and open the template in the editor.
+    -->
 
     <head>
         <title>Raaka-aineet</title>
         <meta charset="utf-8"/>
-        
+        <style>
+            li {
+                list-style-type:disc;
+                padding: 12px;
+            }
+        </style>
     </head>
     <body>
         <h1>Raaka-aineet</h1>
         <ul> 
             <li th:each="raakaaine: ${raakaaineet}">
                 <span th:text="${raakaaine.nimi}">raakaaineen nimi</span>
+                <form method="POST" action="/poista">
+                    <input type="hidden" name="id" th:value="${raakaaine.id}"/>
+                    <input type="submit" value="Poista"/>
+                </form>
             </li>    
         </ul>
+        <h4>Lisää uusi raaka-aine.</h4>
+        <form method="POST" action="/ainekset">
+            Raaka-aineen nimi:<br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
     </body>
 </html>

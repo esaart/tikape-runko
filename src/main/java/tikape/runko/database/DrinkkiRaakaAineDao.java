@@ -80,6 +80,7 @@ public class DrinkkiRaakaAineDao {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM DrinkkiRaakaAine"
                 + " WHERE drinkki_id = ?");
+        stmt.setInt(drinkki.getId(), 1);
         ResultSet rs = stmt.executeQuery();
         
         List<DrinkkiRaakaAine> dras = new ArrayList();
@@ -88,11 +89,12 @@ public class DrinkkiRaakaAineDao {
             Integer drinkkiId = rs.getInt("drinkki_id");
             Integer raakaAineId = rs.getInt("raakaaine_id");
             Integer jarjestys = rs.getInt("jarjestys");
-            String maara = rs.getString("maara");
+            Double maara = rs.getDouble("maara");
+            String yksikko = rs.getString("yksikko");
             String ohje = rs.getString("ohje");
 
             RaakaAine raakaAine = raakaAineDao.findOne(raakaAineId);
-            dras.add(new DrinkkiRaakaAine(drinkki, raakaAine, jarjestys, maara, ohje));
+            dras.add(new DrinkkiRaakaAine(drinkki, raakaAine, jarjestys, maara, yksikko, ohje));
         }
 
         rs.close();
@@ -105,12 +107,13 @@ public class DrinkkiRaakaAineDao {
     public void save(DrinkkiRaakaAine dra) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO DrinkkiRaakaAine"
-                + "(drinkki_id, raakaaine_id, jarjestys, maara, ohje) VALUES (?,?,?,?,?)");
+                + "(drinkki_id, raakaaine_id, jarjestys, maara, yksikko, ohje) VALUES (?,?,?,?,?,?)");
         stmt.setInt(1, dra.getDrinkki().getId());
         stmt.setInt(2, dra.getRaakaAine().getId());
         stmt.setInt(3, dra.getJarjestys());
-        stmt.setString(4, dra.getMaara());
-        stmt.setString(5, dra.getOhje());
+        stmt.setDouble(4, dra.getMaara());
+        stmt.setString(5, dra.getYksikko());
+        stmt.setString(6, dra.getOhje());
         stmt.executeUpdate();
 
 //        ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -127,8 +130,9 @@ public class DrinkkiRaakaAineDao {
         PreparedStatement stmt = conn.prepareStatement("UPDATE DrinkkiRaakaAine SET "
                 + "jarjestys = ?, maara = ?, ohje = ? WHERE drinkki_id = ? AND raakaaine_id = ?");
         stmt.setInt(1, dra.getJarjestys());
-        stmt.setString(2, dra.getMaara());
-        stmt.setString(3, dra.getOhje());
+        stmt.setDouble(2, dra.getMaara());
+        stmt.setString(3, dra.getYksikko());
+        stmt.setString(4, dra.getOhje());
 
         stmt.executeUpdate();
 
