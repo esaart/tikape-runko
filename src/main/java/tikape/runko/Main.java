@@ -1,5 +1,6 @@
 package tikape.runko;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
@@ -18,6 +19,7 @@ public class Main {
         DrinkkiDao drinkkiDao = new DrinkkiDao(database);
         RaakaAineDao raakaaineDao = new RaakaAineDao(database);
         DrinkkiRaakaAineDao drinkkiraakaaineDao = new DrinkkiRaakaAineDao(database);
+        ArrayList<String> yksikot = new ArrayList<>();
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -46,6 +48,7 @@ public class Main {
             HashMap map = new HashMap<>();
             map.put("drinkit", drinkkiDao.findAll());
             map.put("raakaaineet", raakaaineDao.findAll());
+            map.put("yksikko", yksikot);
 
             return new ModelAndView(map, "lisays");
         }, new ThymeleafTemplateEngine());
