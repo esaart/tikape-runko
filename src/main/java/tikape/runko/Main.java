@@ -7,6 +7,7 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.DrinkkiDao;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.domain.RaakaAine;
 
 public class Main {
 
@@ -53,8 +54,12 @@ public class Main {
         get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("raakaaineet", raakaaineDao.findAll());
+            for (RaakaAine raakaaine : raakaaineDao.findAll()) {
+                System.out.println(raakaaine.getNimi());
+                
+            }
             
-            return new ModelAndView(map, "raakaaineet");
+            return new ModelAndView(map, "RaakaAineet");
             }, new ThymeleafTemplateEngine());
         
         
