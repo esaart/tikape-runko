@@ -18,5 +18,11 @@ and open the template in the editor.
                 <span th:text="${raakaaine.nimi}">raakaaineen nimi</span>
             </li>    
         </ul>
+        <h4>Lisää uusi raaka-aine.</h4>
+        <form method="POST" action="/ainekset">
+        Raaka-aineen nimi:<br/>
+        <input type="text" name="nimi"/><br/>
+        <input type="submit" value="Lisää"/>
+        </form>
     </body>
 </html>
