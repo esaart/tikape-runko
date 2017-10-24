@@ -45,6 +45,7 @@ public class Main {
         get("/lisays", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("drinkit", drinkkiDao.findAll());
+            map.put("raakaaineet", raakaaineDao.findAll());
 
             return new ModelAndView(map, "lisays");
         }, new ThymeleafTemplateEngine());

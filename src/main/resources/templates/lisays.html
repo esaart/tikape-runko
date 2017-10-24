@@ -25,6 +25,33 @@
             <input type="submit" value="Lisää"/>
         </form>
 
+        <h4>Lisää raaka-aineita.</h4>
+        Drinkin nimi:<br/>
+        <form method="POST" action="@{~/lisays/{id}(id=${drinkki.id})}">
+            <select name="drinkkiId">
+                <option th:each="drinkki: ${drinkit}" th:value="${drinkki.id}" th:text="${drinkki.nimi}">drinkki</option>
+
+            </select>
+        </form>
+        Lisättävä raaka-aine:<br/>
+        <form method="POST" action="@{~/lisays/{id}(id=${raakaaine.id})}">
+            <select name="raakaaineId">
+                <option th:each="raakaaine: ${raakaaineet}" th:value="${raakaaine.id}" th:text="${raakaaine.nimi}">raakaaine</option>
+
+            </select>
+        </form>
+
+        
+        <form method="POST" action="/lisays">
+            Järjestys:<br/>
+            <input type="text" name="jarjestys"/><br/>
+            Määrä:<br/>
+            <input type="text" name="maara"/><br/>
+            Ohje:<br/>
+            <input type="text" name="ohje"/><br/>
+            <input type="submit" value="Lisää"/>
+        </form>
+
         <p><a href="../">Palaa etusivulle</a></p>
 
     </body>
