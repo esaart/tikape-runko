@@ -3,7 +3,7 @@
     <head>
         <title>Drinkit</title>
         <meta charset="utf-8" />
-        
+
     </head>
     <body>
         <ul>
@@ -11,21 +11,21 @@
                 <span th:text="${drinkki.nimi}">drinkin nimi</span>
                 <form method="POST" action="/poista">
                     <input type="hidden" name="id" th:value="${drinkki.id}"/>
-                    
+
                     <input type="submit" value="Poista"/></form>
-                
+
             </li>
-           
-            
+
+
         </ul>
         <h4>Lisää uusi drinkki.</h4>
         <form method="POST" action="/lisays">
-        Drinkin nimi:<br/>
-        <input type="text" name="nimi"/><br/>
-        <input type="submit" value="Lisää"/>
+            Drinkin nimi:<br/>
+            <input type="text" name="nimi"/><br/>
+            <input type="submit" value="Lisää"/>
         </form>
-        
+
         <p><a href="../">Palaa etusivulle</a></p>
-        
+
     </body>
 </html>
