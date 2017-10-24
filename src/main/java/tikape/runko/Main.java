@@ -6,7 +6,9 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.DrinkkiDao;
+import tikape.runko.database.DrinkkiRaakaAineDao;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.domain.Drinkki;
 import tikape.runko.domain.RaakaAine;
 
 public class Main {
@@ -15,6 +17,7 @@ public class Main {
         Database database = new Database("jdbc:sqlite:db/drinkit.db");
         DrinkkiDao drinkkiDao = new DrinkkiDao(database);
         RaakaAineDao raakaaineDao = new RaakaAineDao(database);
+        DrinkkiRaakaAineDao drinkkiraakaaineDao = new DrinkkiRaakaAineDao(database);
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -32,7 +35,9 @@ public class Main {
 
         get("/drinkit/:id", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("drinkki", drinkkiDao.findOne(Integer.parseInt(req.params("id"))));
+            Drinkki drinkki = drinkkiDao.findOne(Integer.parseInt(req.params("id")));
+            map.put("drinkki", drinkki);
+            map.put("drinkkiraakaaineet", drinkkiraakaaineDao.getByDrinkki(drinkki));
 
             return new ModelAndView(map, "drinkki");
         }, new ThymeleafTemplateEngine());

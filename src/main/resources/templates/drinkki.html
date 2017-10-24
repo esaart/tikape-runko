@@ -11,6 +11,14 @@
 
         <p>Drinkin <span th:text="${drinkki.nimi}">drinkki</span> ainesosat ja valmistusohje:</p>
         
+        <table>
+            <tr th:each="drinkkiraakaaine : ${drinkkiraakaaineet}">
+                <td th:text="${drinkkiraakaaine.maara}">maara</td>
+                <td th:text="${drinkkiraakaaine.yksikko}">yksikko</td>
+                <td th:text="${drinkkiraakaaine.ohje}">ohje</td>
+            </tr>
+        </table>
+        
         <p><a href="/drinkit">Palaa drinkkilistaan</a></p>
     </body>
 </html>
