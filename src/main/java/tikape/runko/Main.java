@@ -43,6 +43,13 @@ public class Main {
             return new ModelAndView(map, "lisays");
         }, new ThymeleafTemplateEngine());
         
+        post("/poista", (req, res) -> {
+            drinkkiDao.delete(Integer.parseInt(req.params("id")));
+            res.redirect("/lisays");
+            return "";
+            
+        });
+        
         get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("raakaaineet", raakaaineDao.findAll());

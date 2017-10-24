@@ -7,10 +7,13 @@
     </head>
     <body>
         <ul>
-            <li> th:each="drinkki: ${drinkit}">
+            <li th:each="drinkki: ${drinkit}">
                 <span th:text="${drinkki.nimi}">drinkin nimi</span>
                 <form method="POST" action="/poista">
+                    <input type="hidden" name="id" th:value="${drinkki.id}"/>
+                    
                     <input type="submit" value="Poista"/></form>
+                
             </li>
            
             
