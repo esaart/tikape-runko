@@ -12,9 +12,7 @@ drinkki_id integer,
 raakaaine_id integer,
 jarjestys integer,
 maara real,
-yksikko varchar(20)
 ohje varchar(200),
 FOREIGN KEY (drinkki_id) REFERENCES Drinkki(id),
 FOREIGN KEY (raakaaine_id) REFERENCES RaakaAine(id));
-
 
