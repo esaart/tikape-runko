@@ -5,14 +5,16 @@ public class DrinkkiRaakaAine {
     private Drinkki drinkki;
     private RaakaAine raakaAine;
     private Integer jarjestys;
-    private String maara;
+    private Double maara;
+    private String yksikko;
     private String ohje;
 
-    public DrinkkiRaakaAine(Drinkki drinkki, RaakaAine raakaAine, Integer jarjestys, String maara, String ohje) {
+    public DrinkkiRaakaAine(Drinkki drinkki, RaakaAine raakaAine, Integer jarjestys, Double maara, String yksikko, String ohje) {
         this.drinkki = drinkki;
         this.raakaAine = raakaAine;
         this.jarjestys = jarjestys;
         this.maara = maara;
+        this.yksikko = yksikko;
         this.ohje = ohje;
     }
 
@@ -40,12 +42,20 @@ public class DrinkkiRaakaAine {
         this.jarjestys = jarjestys;
     }
 
-    public String getMaara() {
+    public Double getMaara() {
         return maara;
     }
 
-    public void setMaara(String maara) {
+    public void setMaara(Double maara) {
         this.maara = maara;
+    }
+
+    public String getYksikko() {
+        return yksikko;
+    }
+
+    public void setYksikko(String yksikko) {
+        this.yksikko = yksikko;
     }
 
     public String getOhje() {
