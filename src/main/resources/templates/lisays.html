@@ -32,33 +32,25 @@
 
         <h4>Lisää raaka-aineita.</h4>
         Drinkin nimi:<br/>
-        <form method="POST" action="@{~/lisays/{id}(id=${drinkki.id})}">
+        <!--<form method="POST" action="@{~/lisays/{id}(id=${drinkki.id})}">-->
+        <form method="POST" th:action="@{~/lisays/aine}">
             <select name="drinkkiId">
                 <option th:each="drinkki: ${drinkit}" th:value="${drinkki.id}" th:text="${drinkki.nimi}">drinkki</option>
-
             </select>
-        </form>
-        Lisättävä raaka-aine:<br/>
-        <form method="POST" action="@{~/lisays/{id}(id=${raakaaine.id})}">
+
+            Lisättävä raaka-aine:<br/>
             <select name="raakaaineId">
                 <option th:each="raakaaine: ${raakaaineet}" th:value="${raakaaine.id}" th:text="${raakaaine.nimi}">raakaaine</option>
-
             </select>
-        </form>
 
 
-        <form method="POST" action="/lisays">
             Järjestys:<br/>
             <input type="text" name="jarjestys"/><br/>
             Määrä:<br/>
             <input type="text" name="maara"/><br/>
             Yksikkö:<br/>
             <select name="yksikko">
-                <option name="1">l</option>
-                <option name="2">dl</option>
-                <option name="3">cl</option>
-                <option name="4">kpl</option>
-                <option name="5">siivu</option>
+                <option th:each="yksikko:${yksikot}" th:text="${yksikko}" th:value="${yksikko}">yksikko</option>
             </select>
             <br/>
 

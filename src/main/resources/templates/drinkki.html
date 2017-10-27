@@ -13,6 +13,8 @@
         
         <table>
             <tr th:each="drinkkiraakaaine : ${drinkkiraakaaineet}">
+                <td th:text="${drinkkiraakaaine.jarjestys}">jarjestys</td>
+                <td th:text="${drinkkiraakaaine.raakaAine.nimi}">aine</td>
                 <td th:text="${drinkkiraakaaine.maara}">maara</td>
                 <td th:text="${drinkkiraakaaine.yksikko}">yksikko</td>
                 <td th:text="${drinkkiraakaaine.ohje}">ohje</td>
