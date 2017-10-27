@@ -43,7 +43,7 @@ public class Main {
 
             return new ModelAndView(map, "drinkki");
         }, new ThymeleafTemplateEngine());
-        
+
         get("/lisays", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("drinkit", drinkkiDao.findAll());
@@ -52,26 +52,28 @@ public class Main {
 
             return new ModelAndView(map, "lisays");
         }, new ThymeleafTemplateEngine());
-        
-        post("/poista", (req, res) -> {
+
+        post("/lisays/poista/:id", (req, res) -> {
             drinkkiDao.delete(Integer.parseInt(req.params("id")));
             res.redirect("/lisays");
             return "";
-            
         });
-        
+
+        post("/ainekset/poista/:id", (req, res) -> {
+            System.out.println(req.params("id"));
+
+            raakaaineDao.delete(Integer.parseInt(req.params("id")));
+            res.redirect("/ainekset");
+            return "";
+        });
+
         get("/ainekset", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("raakaaineet", raakaaineDao.findAll());
-            for (RaakaAine raakaaine : raakaaineDao.findAll()) {
-                System.out.println(raakaaine.getNimi());
-                
-            }
-            
+
             return new ModelAndView(map, "RaakaAineet");
-            }, new ThymeleafTemplateEngine());
-        
-        
+        }, new ThymeleafTemplateEngine());
+
         post("/lisays", (req, res) -> {
             Drinkki drinkki = new Drinkki(null, req.queryParams("nimi"));
             drinkkiDao.saveOrUpdate(drinkki);
@@ -79,7 +81,7 @@ public class Main {
             res.redirect("/lisays");
             return "";
         });
-        
+
         post("/ainekset", (req, res) -> {
             RaakaAine raakaAine = new RaakaAine(null, req.queryParams("nimi"));
             raakaaineDao.saveOrUpdate(raakaAine);
@@ -87,7 +89,7 @@ public class Main {
             res.redirect("/ainekset");
             return "";
         });
-        
+
 //        post("/drinkit", (req,res) -> {
 //            )
 //            

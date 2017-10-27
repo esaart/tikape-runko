@@ -15,9 +15,8 @@
         <ul>
             <li th:each="drinkki: ${drinkit}">
                 <span th:text="${drinkki.nimi}">drinkin nimi</span>
-                <form method="POST" action="/poista">
-                    <input type="hidden" name="id" th:value="${drinkki.id}"/>
-
+                <form method="POST" th:action="${'/lisays/poista/' + drinkki.id}">
+                    <!--<input type="hidden" name="id" th:value="${drinkki.id}"/>-->
                     <input type="submit" value="Poista"/></form>
 
             </li>
