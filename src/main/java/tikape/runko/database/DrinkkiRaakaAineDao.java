@@ -128,9 +128,10 @@ public class DrinkkiRaakaAineDao {
     
     public void saveOrUpdate(DrinkkiRaakaAine dra) throws SQLException {
         if (getByDrinkkiAndRaakaAine(dra.getDrinkki(), dra.getRaakaAine()) == null) {
-            System.out.println("draDao -> saveOrUpdate: " + dra.getRaakaAine().getNimi());
+            System.out.println("draDao -> saveOrUpdate: save " + dra.getRaakaAine().getNimi());
             save(dra);
         }
+        System.out.println("draDao -> saveOrUpdate: update " + dra.getRaakaAine().getNimi());
         update(dra);
     }
     
@@ -157,11 +158,14 @@ public class DrinkkiRaakaAineDao {
     public DrinkkiRaakaAine update(DrinkkiRaakaAine dra) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("UPDATE DrinkkiRaakaAine SET "
-                + "jarjestys = ?, maara = ?, ohje = ? WHERE drinkki_id = ? AND raakaaine_id = ?");
+                + "jarjestys = ?, maara = ?, yksikko = ?, ohje = ? "
+                + "WHERE drinkki_id = ? AND raakaaine_id = ?");
         stmt.setInt(1, dra.getJarjestys());
         stmt.setDouble(2, dra.getMaara());
         stmt.setString(3, dra.getYksikko());
         stmt.setString(4, dra.getOhje());
+        stmt.setInt(5, dra.getDrinkki().getId());
+        stmt.setInt(6, dra.getRaakaAine().getId());
         
         stmt.executeUpdate();
         
