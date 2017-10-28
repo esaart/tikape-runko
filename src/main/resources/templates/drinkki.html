@@ -4,14 +4,34 @@
     <head>
         <title>Drinkit</title>
         <meta charset="utf-8" />
+        <style>
+            html {
+                font-family: sans-serif;
+            }
+            table {
+                border-collapse: collapse; 
+            }
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+        </style>
     </head>
 
     <body>
         <h1><span th:text="${drinkki.nimi}">drinkki</span></h1>
 
         <p>Drinkin <span th:text="${drinkki.nimi}">drinkki</span> ainesosat ja valmistusohje:</p>
-        
+
         <table>
+            <tr>
+                <th>Järjestys</th>
+                <th>Aines</th>
+                <th>Määrä</th>
+                <th>Yksikkö</th>
+                <th>Ohje</th>
+            </tr>
             <tr th:each="drinkkiraakaaine : ${drinkkiraakaaineet}">
                 <td th:text="${drinkkiraakaaine.jarjestys}">jarjestys</td>
                 <td th:text="${drinkkiraakaaine.raakaAine.nimi}">aine</td>
@@ -20,7 +40,7 @@
                 <td th:text="${drinkkiraakaaine.ohje}">ohje</td>
             </tr>
         </table>
-        
+
         <p><a href="/drinkit">Palaa drinkkilistaan</a></p>
     </body>
 </html>
