@@ -3,7 +3,6 @@ package tikape.runko;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import spark.ModelAndView;
@@ -25,7 +24,7 @@ public class Main {
         RaakaAineDao raakaaineDao = new RaakaAineDao(database);
         DrinkkiRaakaAineDao drinkkiraakaaineDao = new DrinkkiRaakaAineDao(database);
         ArrayList<String> yksikot = new ArrayList<>();
-        yksikot.addAll(Arrays.asList("l", "dl", "cl", "kpl", "siivu"));
+        yksikot.addAll(Arrays.asList("l", "dl", "cl", "kpl", "siivu", "tl", "rkl"));
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -65,7 +64,11 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         post("/lisays/poista/:id", (req, res) -> {
-            drinkkiDao.delete(Integer.parseInt(req.params("id")));
+            Drinkki drinkki = drinkkiDao.findOne(Integer.parseInt(req.params("id")));
+            for (DrinkkiRaakaAine dra : drinkkiraakaaineDao.getByDrinkki(drinkki)) {
+                drinkkiraakaaineDao.delete(drinkki.getId(), dra.getRaakaAine().getId());
+            }
+            drinkkiDao.delete(drinkki.getId());
             res.redirect("/lisays");
             return "";
         });
@@ -96,14 +99,12 @@ public class Main {
         post("/lisays/aine", (req, res) -> {
             Drinkki drinkki = drinkkiDao.findOne(Integer.parseInt(req.queryParams("drinkkiId")));
             RaakaAine raakaAine = raakaaineDao.findOne(Integer.parseInt(req.queryParams("raakaaineId")));
-            DrinkkiRaakaAine dra = new DrinkkiRaakaAine(drinkki, raakaAine, 
+            DrinkkiRaakaAine dra = new DrinkkiRaakaAine(drinkki, raakaAine,
                     Integer.parseInt(req.queryParams("jarjestys")),
-                    Double.parseDouble(req.queryParams("maara")), 
+                    Double.parseDouble(req.queryParams("maara")),
                     req.queryParams("yksikko"), req.queryParams("ohje"));
             drinkkiraakaaineDao.saveOrUpdate(dra);
-            
-            System.out.println("");
-            
+
             res.redirect("/lisays");
             return "";
         });
@@ -115,10 +116,5 @@ public class Main {
             res.redirect("/ainekset");
             return "";
         });
-
-//        post("/drinkit", (req,res) -> {
-//            )
-//            
-//        })
     }
 }
